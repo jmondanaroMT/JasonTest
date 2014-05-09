@@ -1,0 +1,2037 @@
+﻿<wsdl:definitions xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://metanga.com" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="Metanga" targetNamespace="http://metanga.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IEnrollment_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://metanga.com">
+      <xsd:complexType name="Promotion">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Entity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="CouponAmountType" nillable="true" type="tns:CouponAmountType">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CouponAmountValue" nillable="true" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CouponDurationType" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CouponDurationValue" nillable="true" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="IsCoupon" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="PromoCode" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PromoEnd" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PromoStart" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PromotionPackages" nillable="true" type="tns:ArrayOfPackage" />
+              <xsd:element minOccurs="0" name="PromotionProducts" nillable="true" type="tns:ArrayOfProduct" />
+              <xsd:element minOccurs="0" name="Rank" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Promotion" nillable="true" type="tns:Promotion" />
+      <xsd:complexType name="Entity">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:anyType">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <ActualType Name="ArrayOfKeyValueOfstringstring" Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EntityId" nillable="true" type="ser:guid" />
+          <xsd:element minOccurs="0" name="ExternalId" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Name" nillable="true" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q1:ArrayOfKeyValueOfstringstring">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="Entity" nillable="true" type="tns:Entity" />
+      <xsd:simpleType name="CouponAmountType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Flat" />
+          <xsd:enumeration value="Percent" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="CouponAmountType" nillable="true" type="tns:CouponAmountType" />
+      <xsd:complexType name="ArrayOfPackage">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Package" nillable="true" type="tns:Package" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfPackage" nillable="true" type="tns:ArrayOfPackage" />
+      <xsd:complexType name="Package">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="AdvanceRecurringEvents" nillable="true" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="GracePeriod" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="GracePeriodTimeUnit" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="IsFixedTerm" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PackageProducts" nillable="true" type="tns:ArrayOfPackageProduct">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PaymentInfoStatus" type="tns:PaymentInfoStatus">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Rank" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="RecurringChargeCycle" nillable="true" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q2:ArrayOfstring">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TermLength" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TermTimeUnit" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Package" nillable="true" type="tns:Package" />
+      <xsd:complexType name="ExtensibleEntity">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Entity">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ExtensibleEntity" nillable="true" type="tns:ExtensibleEntity" />
+      <xsd:complexType name="ArrayOfPackageProduct">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="PackageProduct" nillable="true" type="tns:PackageProduct" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfPackageProduct" nillable="true" type="tns:ArrayOfPackageProduct" />
+      <xsd:complexType name="PackageProduct">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="EventModel" type="tns:EventModel" />
+          <xsd:element minOccurs="0" name="PriceSchedule" nillable="true" type="tns:PriceSchedule" />
+          <xsd:element minOccurs="0" name="Product" nillable="true" type="tns:Product" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="PackageProduct" nillable="true" type="tns:PackageProduct" />
+      <xsd:simpleType name="EventModel">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="None" />
+          <xsd:enumeration value="Recurring" />
+          <xsd:enumeration value="ActivationFlat" />
+          <xsd:enumeration value="TerminationFeeRemainder" />
+          <xsd:enumeration value="TerminationTimeServed" />
+          <xsd:enumeration value="TerminationFeeFlat" />
+          <xsd:enumeration value="Subscription" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="EventModel" nillable="true" type="tns:EventModel" />
+      <xsd:complexType name="PriceSchedule">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Intervals" nillable="true" type="tns:ArrayOfPriceScheduleInterval" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="PriceSchedule" nillable="true" type="tns:PriceSchedule" />
+      <xsd:complexType name="ArrayOfPriceScheduleInterval">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="PriceScheduleInterval" nillable="true" type="tns:PriceScheduleInterval" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfPriceScheduleInterval" nillable="true" type="tns:ArrayOfPriceScheduleInterval" />
+      <xsd:complexType name="PriceScheduleInterval">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="StartDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="UnitPrices" nillable="true" type="tns:ArrayOfUnitPrice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="PriceScheduleInterval" nillable="true" type="tns:PriceScheduleInterval" />
+      <xsd:complexType name="ArrayOfUnitPrice">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="UnitPrice" nillable="true" type="tns:UnitPrice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfUnitPrice" nillable="true" type="tns:ArrayOfUnitPrice" />
+      <xsd:complexType name="UnitPrice">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Price" nillable="true" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" type="q3:ArrayOfKeyValueOfstringdecimal" />
+          <xsd:element minOccurs="0" name="TimeUnitId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="UsageUnitId" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="UnitPrice" nillable="true" type="tns:UnitPrice" />
+      <xsd:complexType name="Product">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="PriceSchedule" nillable="true" type="tns:PriceSchedule">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Rank" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Taxable" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TimeBased" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="UnitGroup" nillable="true" type="tns:UnitGroup">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Product" nillable="true" type="tns:Product" />
+      <xsd:complexType name="UnitGroup">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Entity">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="UnitGroup" nillable="true" type="tns:UnitGroup" />
+      <xsd:simpleType name="PaymentInfoStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="NotDefined" />
+          <xsd:enumeration value="NotRequired" />
+          <xsd:enumeration value="Required" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="PaymentInfoStatus" nillable="true" type="tns:PaymentInfoStatus" />
+      <xsd:complexType name="ArrayOfProduct">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Product" nillable="true" type="tns:Product" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfProduct" nillable="true" type="tns:ArrayOfProduct" />
+      <xsd:complexType name="SamplePackage">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Package">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SamplePackage" nillable="true" type="tns:SamplePackage" />
+      <xsd:complexType name="ActivationFlat">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ActivationFlat" nillable="true" type="tns:ActivationFlat" />
+      <xsd:complexType name="BillableEvent">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="EndTime" nillable="true" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="Quantity" nillable="true" type="xsd:decimal" />
+              <xsd:element minOccurs="0" name="StartTime" nillable="true" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="UnitOfMeasure" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="BillableEvent" nillable="true" type="tns:BillableEvent" />
+      <xsd:complexType name="UsageEvent">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ExternalAccountId" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExternalProductId" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty1" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty10" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty2" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty3" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty4" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty5" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty6" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty7" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty8" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty9" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="UsageEvent" nillable="true" type="tns:UsageEvent" />
+      <xsd:complexType name="CouponDiscountCharge">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Charge">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="PromotionId" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="CouponDiscountCharge" nillable="true" type="tns:CouponDiscountCharge" />
+      <xsd:complexType name="Charge">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="BillingCycleUnit" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="BillingDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="ChargeAmount" type="xsd:decimal" />
+              <xsd:element minOccurs="0" name="ChargeCurrency" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="EndInstanceDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="EndTime" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="InvoiceId" nillable="true" type="ser:guid" />
+              <xsd:element minOccurs="0" name="PayerId" type="ser:guid" />
+              <xsd:element minOccurs="0" name="Price" type="xsd:decimal" />
+              <xsd:element minOccurs="0" name="PriceAmount" type="xsd:decimal" />
+              <xsd:element minOccurs="0" name="PriceCurrency" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ProductId" type="ser:guid" />
+              <xsd:element minOccurs="0" name="Quantity" type="xsd:decimal" />
+              <xsd:element minOccurs="0" name="StartTime" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="SubscriptionPackageProductId" nillable="true" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Charge" nillable="true" type="tns:Charge" />
+      <xsd:complexType name="TerminationFeeFlat">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TerminationFeeFlat" nillable="true" type="tns:TerminationFeeFlat" />
+      <xsd:complexType name="SalesCharge">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Charge">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ExtraProperty1" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty10" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty2" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty3" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty4" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty5" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty6" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty7" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty8" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty9" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SalesCharge" nillable="true" type="tns:SalesCharge" />
+      <xsd:complexType name="SampleProduct">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Product">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="TierQuantity" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SampleProduct" nillable="true" type="tns:SampleProduct" />
+      <xsd:complexType name="ManualCharge">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Description" nillable="true" type="xsd:anyType">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <ActualType Name="string" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ManualCharge" nillable="true" type="tns:ManualCharge" />
+      <xsd:complexType name="SampleAccount">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Account">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ExtraProperty1" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty10" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty2" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty3" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty4" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty5" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty6" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty7" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty8" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="ExtraProperty9" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SampleAccount" nillable="true" type="tns:SampleAccount" />
+      <xsd:complexType name="Account">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Address1" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Address2" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Address3" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BillingCycleEndDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BillingCycleUnit" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="City" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Company" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Country" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Currency" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Email" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ExternalAccountId" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ExternalParentId" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ExternalPayerId" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="FailedPasswordAttemptCount" nillable="true" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="FaxNumber" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="FirstName" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Language" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastChangePassword" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastLockoutDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastName" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="MiddleInitial" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Parent" nillable="true" type="tns:Account">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Password" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Payer" nillable="true" type="tns:Account">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PaymentInstrumentId" nillable="true" type="ser:guid">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PaysAutomatically" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PhoneNumber" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="SecurityAnswer" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="SecurityQuestion" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="State" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Suspended" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TermsConditionsAcceptDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="TermsConditionsVersion" nillable="true" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="UserName" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Zip" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Account" nillable="true" type="tns:Account" />
+      <xsd:complexType name="RecurringEvent">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="RecurringEventEnd" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="RecurringEventStart" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="SubscriptionPackageProductId" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="RecurringEvent" nillable="true" type="tns:RecurringEvent" />
+      <xsd:complexType name="TaxEvent">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TaxEvent" nillable="true" type="tns:TaxEvent" />
+      <xsd:complexType name="SampleSubscription">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Subscription">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SampleSubscription" nillable="true" type="tns:SampleSubscription" />
+      <xsd:complexType name="Subscription">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Package" nillable="true" type="tns:Package" />
+              <xsd:element minOccurs="0" name="PromotionCode" nillable="true" type="xsd:string" />
+              <xsd:element minOccurs="0" name="SubscriptionDate" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="SubscriptionEndDate" nillable="true" type="xsd:dateTime" />
+              <xsd:element minOccurs="0" name="SubscriptionSettings" nillable="true" type="tns:ArrayOfProductSubscriptionSettings" />
+              <xsd:element minOccurs="0" name="SubscriptionType" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Subscription" nillable="true" type="tns:Subscription" />
+      <xsd:complexType name="ArrayOfProductSubscriptionSettings">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ProductSubscriptionSettings" nillable="true" type="tns:ProductSubscriptionSettings" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfProductSubscriptionSettings" nillable="true" type="tns:ArrayOfProductSubscriptionSettings" />
+      <xsd:complexType name="ProductSubscriptionSettings">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ProductId" type="ser:guid" />
+          <xsd:element minOccurs="0" name="Quantity" nillable="true" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="UnitId" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ProductSubscriptionSettings" nillable="true" type="tns:ProductSubscriptionSettings" />
+      <xsd:complexType name="TaxProduct">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Product">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TaxProduct" nillable="true" type="tns:TaxProduct" />
+      <xsd:complexType name="TerminationFeeRemainder">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="SubscriptionPackageProductId" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TerminationFeeRemainder" nillable="true" type="tns:TerminationFeeRemainder" />
+      <xsd:complexType name="TerminationTimeServed">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:BillableEvent">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="SubscriptionPackageProductId" type="ser:guid" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TerminationTimeServed" nillable="true" type="tns:TerminationTimeServed" />
+      <xsd:complexType name="SampleInvoice">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Invoice">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SampleInvoice" nillable="true" type="tns:SampleInvoice" />
+      <xsd:complexType name="Invoice">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ExtensibleEntity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="AmountDue" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="AutoPayInstrumentId" nillable="true" type="ser:guid">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BillPeriodEndDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="BillPeriodStartDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ChargeSummary" nillable="true" type="tns:ArrayOfChargeDetail">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CurrentBalance" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CycleInstanceEndDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="CycleUnit" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceCurrency" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceDate" nillable="true" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceDueDate" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceNumber" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceSalesAmount" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceState" type="tns:InvoiceState">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceTaxAmount" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="InvoiceTaxableAmount" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="OnHold" type="xsd:boolean">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Payer" nillable="true" type="tns:Account">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="PreviousBalance" type="xsd:decimal">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="Invoice" nillable="true" type="tns:Invoice" />
+      <xsd:complexType name="ArrayOfChargeDetail">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ChargeDetail" nillable="true" type="tns:ChargeDetail" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfChargeDetail" nillable="true" type="tns:ArrayOfChargeDetail" />
+      <xsd:complexType name="ChargeDetail">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ChargeAmount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="Currency" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Product" nillable="true" type="tns:Product" />
+          <xsd:element minOccurs="0" name="Quantity" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ChargeDetail" nillable="true" type="tns:ChargeDetail" />
+      <xsd:simpleType name="InvoiceState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Open" />
+          <xsd:enumeration value="Closed" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="InvoiceState" nillable="true" type="tns:InvoiceState" />
+      <xsd:complexType name="TaxCharge">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Charge">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="GeoCode" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="TaxCharge" nillable="true" type="tns:TaxCharge" />
+      <xsd:complexType name="NotificationEndpoint">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:Entity">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="Active" type="xsd:boolean" />
+              <xsd:element minOccurs="0" name="AuthenticationConfiguration" nillable="true" type="tns:AuthenticationConfiguration">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="EndpointConfiguration" nillable="true" type="tns:NotificationEndpointConfiguration">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="NotificationEndpoint" nillable="true" type="tns:NotificationEndpoint" />
+      <xsd:complexType name="AuthenticationConfiguration">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:element name="AuthenticationConfiguration" nillable="true" type="tns:AuthenticationConfiguration" />
+      <xsd:complexType name="ClientCertificateConfiguration">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:AuthenticationConfiguration">
+            <xsd:sequence />
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="ClientCertificateConfiguration" nillable="true" type="tns:ClientCertificateConfiguration" />
+      <xsd:complexType name="OAuthWebServerConsumerConfiguration">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:AuthenticationConfiguration">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="AccessAuthorizationUri" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="AccessTokenParameterName" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="AccessTokenUri" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ClientId" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ClientSecret" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastAuthorizationErrorCode" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastAuthorizationErrorDate" type="xsd:dateTime">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="LastAuthorizationErrorDescription" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="RefreshToken" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="ResponseType" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+              <xsd:element minOccurs="0" name="Scope" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="OAuthWebServerConsumerConfiguration" nillable="true" type="tns:OAuthWebServerConsumerConfiguration" />
+      <xsd:complexType name="NotificationEndpointConfiguration">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="EndpointAddress" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="NotificationEndpointConfiguration" nillable="true" type="tns:NotificationEndpointConfiguration" />
+      <xsd:complexType name="RestfulNotificationConfiguration">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:NotificationEndpointConfiguration">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ContentFormat" xmlns:q4="http://schemas.datacontract.org/2004/07/Metanga.Infrastructure" type="q4:RESTfulContentFormat">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="RestfulNotificationConfiguration" nillable="true" type="tns:RestfulNotificationConfiguration" />
+      <xsd:complexType name="SoapNotificationConfiguration">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:NotificationEndpointConfiguration">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" name="ServiceVersion" nillable="true" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xsd:appinfo>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="SoapNotificationConfiguration" nillable="true" type="tns:SoapNotificationConfiguration" />
+      <xsd:element name="CreateSession">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="userName" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateSessionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CreateSessionResult" type="ser:guid" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="MetangaFault">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ErrorId" type="ser:guid" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="MetangaFault" nillable="true" type="tns:MetangaFault" />
+      <xsd:element name="CloseSession">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CloseSessionResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPackagesByPromotionCode">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="promoCode" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="enrollmentDate" type="xsd:dateTime" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPackagesByPromotionCodeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetPackagesByPromotionCodeResult" nillable="true" type="tns:ArrayOfPackage" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EnrollNewAccount">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="newAccount" nillable="true" type="tns:Account" />
+            <xsd:element minOccurs="0" name="enrollmentDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="packageId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="promoCode" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="recurringCycleUnitId" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="productSubscriptionSettings" nillable="true" type="tns:ArrayOfProductSubscriptionSettings" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EnrollNewAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="EnrollNewAccountResult" nillable="true" type="tns:InvoiceReport" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="InvoiceReport">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BankAccountNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BankAccountType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BankName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="CreditCardExpiration" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="CreditCardNumberMasked" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="CreditCardType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Currency" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Customer" nillable="true" type="tns:ContactInfo" />
+          <xsd:element minOccurs="0" name="DomainName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="EndBillingDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="InvoiceCurrency" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="InvoiceDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="InvoiceDetails" nillable="true" type="tns:ArrayOfInvoiceDetail" />
+          <xsd:element minOccurs="0" name="InvoiceDueDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="InvoiceId" type="ser:guid" />
+          <xsd:element minOccurs="0" name="InvoiceNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="InvoiceProductsItems" nillable="true" type="tns:ArrayOfInvoiceProduct" />
+          <xsd:element minOccurs="0" name="InvoiceSalesAmount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="InvoiceSalesDiscount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="InvoiceSummaryItems" nillable="true" type="tns:ArrayOfInvoiceSummary" />
+          <xsd:element minOccurs="0" name="InvoiceTaxAmount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="IsOrdered" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="Lockbox" nillable="true" type="tns:ContactInfo" />
+          <xsd:element minOccurs="0" name="OnHold" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="PaymentsAndCreditsPast" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="PreviousAmount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="StartBillingDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="TaxDetails" nillable="true" type="tns:ArrayOfTaxInfo" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceReport" nillable="true" type="tns:InvoiceReport" />
+      <xsd:complexType name="ContactInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Address1" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Address2" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Address3" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Attention" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="City" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="CompanyName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Country" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="EmailAddress" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty1" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty10" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty2" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty3" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty4" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty5" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty6" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty7" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty8" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ExtraProperty9" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="PhoneNumber" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="State" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ZipOrPostalCode" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ContactInfo" nillable="true" type="tns:ContactInfo" />
+      <xsd:complexType name="ArrayOfInvoiceDetail">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="InvoiceDetail" nillable="true" type="tns:InvoiceDetail" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfInvoiceDetail" nillable="true" type="tns:ArrayOfInvoiceDetail" />
+      <xsd:complexType name="InvoiceDetail">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="AccountId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="AccountName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="Discount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="EndTime" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="InvoiceTaxAmount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="IsTaxable" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="PricePerItem" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="ProductName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Quantity" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="StartTime" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="UnitName" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceDetail" nillable="true" type="tns:InvoiceDetail" />
+      <xsd:complexType name="ArrayOfInvoiceProduct">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="InvoiceProduct" nillable="true" type="tns:InvoiceProduct" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfInvoiceProduct" nillable="true" type="tns:ArrayOfInvoiceProduct" />
+      <xsd:complexType name="InvoiceProduct">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="Discount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="ProductDetails" nillable="true" type="tns:ArrayOfInvoiceDetail" />
+          <xsd:element minOccurs="0" name="ProductName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="UnitName" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceProduct" nillable="true" type="tns:InvoiceProduct" />
+      <xsd:complexType name="ArrayOfInvoiceSummary">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="InvoiceSummary" nillable="true" type="tns:InvoiceSummary" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfInvoiceSummary" nillable="true" type="tns:ArrayOfInvoiceSummary" />
+      <xsd:complexType name="InvoiceSummary">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="Discount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="IsTaxable" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="ProductName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="PromoName" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Quantity" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="Tax" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="InvoiceSummary" nillable="true" type="tns:InvoiceSummary" />
+      <xsd:complexType name="ArrayOfTaxInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaxInfo" nillable="true" type="tns:TaxInfo" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfTaxInfo" nillable="true" type="tns:ArrayOfTaxInfo" />
+      <xsd:complexType name="TaxInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="TaxAmount" type="xsd:double" />
+          <xsd:element minOccurs="0" name="TaxDescription" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="TaxLevel" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="TaxType" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="TaxInfo" nillable="true" type="tns:TaxInfo" />
+      <xsd:element name="CreateEntity">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="newEntity" nillable="true" type="tns:Entity" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateEntityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CreateEntityResult" type="ser:guid" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveEntity">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="entityReference" nillable="true" type="tns:Entity" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveEntityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="RetrieveEntityResult" nillable="true" type="tns:Entity" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateEntity">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="updatedEntity" nillable="true" type="tns:Entity" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateEntityResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteEntity">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="entityReference" nillable="true" type="tns:Entity" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteEntityResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateAccount">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="newAccount" nillable="true" type="tns:Account" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveAccount">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="accountId" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="RetrieveAccountResult" nillable="true" type="tns:Account" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="MeterUsageEvents">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="batch" nillable="true" type="tns:UsageBatch" />
+            <xsd:element minOccurs="0" name="usageEvents" nillable="true" type="tns:ArrayOfBillableEvent" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="UsageBatch">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="BatchId" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BatchNamespace" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="BatchType" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="UsageBatch" nillable="true" type="tns:UsageBatch" />
+      <xsd:complexType name="ArrayOfBillableEvent">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BillableEvent" nillable="true" type="tns:BillableEvent" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBillableEvent" nillable="true" type="tns:ArrayOfBillableEvent" />
+      <xsd:element name="MeterUsageEventsResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateAccount">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="account" nillable="true" type="tns:Account" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateAccountResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSubscriptionsByAccountId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="sessionId" type="ser:guid" />
+            <xsd:element minOccurs="0" name="accountId" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="effectiveDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="language" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="currency" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSubscriptionsByAccountIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="GetSubscriptionsByAccountIdResult" nillable="true" type="tns:ArrayOfSubscription" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfSubscription">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Subscription" nillable="true" type="tns:Subscription" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfSubscription" nillable="true" type="tns:ArrayOfSubscription" />
+      <xsd:element name="ExposeEventInfo">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExposeEventInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="ExposeEventInfoResult" nillable="true" type="tns:EventInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="EventInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Entity" nillable="true" type="tns:Entity" />
+          <xsd:element minOccurs="0" name="EventName" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="EventInfo" nillable="true" type="tns:EventInfo" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xsd:complexType name="ArrayOfKeyValueOfstringstring">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="Key" nillable="true" type="xsd:string" />
+                <xsd:element name="Value" nillable="true" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring" />
+      <xsd:complexType name="ArrayOfKeyValueOfstringdecimal">
+        <xsd:annotation>
+          <xsd:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringdecimal">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="Key" nillable="true" type="xsd:string" />
+                <xsd:element name="Value" type="xsd:decimal" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfKeyValueOfstringdecimal" nillable="true" type="tns:ArrayOfKeyValueOfstringdecimal" />
+      <xsd:complexType name="ArrayOfstring">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Metanga.Infrastructure" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Metanga.Infrastructure">
+      <xsd:simpleType name="RESTfulContentFormat">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Json" />
+          <xsd:enumeration value="Xml" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="RESTfulContentFormat" nillable="true" type="tns:RESTfulContentFormat" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IEnrollment_CreateSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSession" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateSession_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CloseSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSession" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CloseSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CloseSession_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetPackagesByPromotionCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPackagesByPromotionCode" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetPackagesByPromotionCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPackagesByPromotionCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetPackagesByPromotionCode_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_EnrollNewAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnrollNewAccount" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_EnrollNewAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnrollNewAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_EnrollNewAccount_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateEntity_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEntity" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateEntity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateEntity_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveEntity_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveEntity" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveEntity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveEntity_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateEntity_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEntity" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateEntity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateEntity_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_DeleteEntity_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEntity" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_DeleteEntity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_DeleteEntity_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_CreateAccount_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveAccount" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetrieveAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_RetrieveAccount_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_MeterUsageEvents_InputMessage">
+    <wsdl:part name="parameters" element="tns:MeterUsageEvents" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_MeterUsageEvents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MeterUsageEventsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_MeterUsageEvents_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_UpdateAccount_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetSubscriptionsByAccountId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubscriptionsByAccountId" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetSubscriptionsByAccountId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSubscriptionsByAccountIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_GetSubscriptionsByAccountId_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_ExposeEventInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExposeEventInfo" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_ExposeEventInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExposeEventInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEnrollment_ExposeEventInfo_MetangaFaultFault_FaultMessage">
+    <wsdl:part name="detail" element="tns:MetangaFault" />
+  </wsdl:message>
+  <wsdl:portType name="IEnrollment">
+    <wsdl:operation name="CreateSession">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/CreateSession" message="tns:IEnrollment_CreateSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/CreateSessionResponse" message="tns:IEnrollment_CreateSession_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_CreateSession_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseSession">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/CloseSession" message="tns:IEnrollment_CloseSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/CloseSessionResponse" message="tns:IEnrollment_CloseSession_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_CloseSession_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPackagesByPromotionCode">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/GetPackagesByPromotionCode" message="tns:IEnrollment_GetPackagesByPromotionCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/GetPackagesByPromotionCodeResponse" message="tns:IEnrollment_GetPackagesByPromotionCode_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_GetPackagesByPromotionCode_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnrollNewAccount">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/EnrollNewAccount" message="tns:IEnrollment_EnrollNewAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/EnrollNewAccountResponse" message="tns:IEnrollment_EnrollNewAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_EnrollNewAccount_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEntity">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/CreateEntity" message="tns:IEnrollment_CreateEntity_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/CreateEntityResponse" message="tns:IEnrollment_CreateEntity_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_CreateEntity_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveEntity">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/RetrieveEntity" message="tns:IEnrollment_RetrieveEntity_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/RetrieveEntityResponse" message="tns:IEnrollment_RetrieveEntity_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_RetrieveEntity_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEntity">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/UpdateEntity" message="tns:IEnrollment_UpdateEntity_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/UpdateEntityResponse" message="tns:IEnrollment_UpdateEntity_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_UpdateEntity_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntity">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/DeleteEntity" message="tns:IEnrollment_DeleteEntity_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/DeleteEntityResponse" message="tns:IEnrollment_DeleteEntity_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_DeleteEntity_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccount">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/CreateAccount" message="tns:IEnrollment_CreateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/CreateAccountResponse" message="tns:IEnrollment_CreateAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_CreateAccount_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveAccount">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/RetrieveAccount" message="tns:IEnrollment_RetrieveAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/RetrieveAccountResponse" message="tns:IEnrollment_RetrieveAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_RetrieveAccount_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MeterUsageEvents">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/MeterUsageEvents" message="tns:IEnrollment_MeterUsageEvents_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/MeterUsageEventsResponse" message="tns:IEnrollment_MeterUsageEvents_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_MeterUsageEvents_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/UpdateAccount" message="tns:IEnrollment_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/UpdateAccountResponse" message="tns:IEnrollment_UpdateAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_UpdateAccount_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSubscriptionsByAccountId">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/GetSubscriptionsByAccountId" message="tns:IEnrollment_GetSubscriptionsByAccountId_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/GetSubscriptionsByAccountIdResponse" message="tns:IEnrollment_GetSubscriptionsByAccountId_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_GetSubscriptionsByAccountId_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExposeEventInfo">
+      <wsdl:input wsaw:Action="http://metanga.com/IEnrollment/ExposeEventInfo" message="tns:IEnrollment_ExposeEventInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://metanga.com/IEnrollment/ExposeEventInfoResponse" message="tns:IEnrollment_ExposeEventInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://metanga.com/IMetanga/MetangaFault" name="MetangaFaultFault" message="tns:IEnrollment_ExposeEventInfo_MetangaFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IEnrollment" type="tns:IEnrollment">
+    <wsp:PolicyReference URI="#WSHttpBinding_IEnrollment_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateSession">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/CreateSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CloseSession">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/CloseSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetPackagesByPromotionCode">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/GetPackagesByPromotionCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EnrollNewAccount">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/EnrollNewAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEntity">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/CreateEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveEntity">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/RetrieveEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEntity">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/UpdateEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntity">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/DeleteEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccount">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/CreateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveAccount">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/RetrieveAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="MeterUsageEvents">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/MeterUsageEvents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/UpdateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSubscriptionsByAccountId">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/GetSubscriptionsByAccountId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ExposeEventInfo">
+      <soap12:operation soapAction="http://metanga.com/IEnrollment/ExposeEventInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="MetangaFaultFault">
+        <soap12:fault name="MetangaFaultFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Metanga">
+    <wsdl:port name="WSHttpBinding_IEnrollment" binding="tns:WSHttpBinding_IEnrollment">
+      <soap12:address location="https://demo.mybillaccess.com/soapservice" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://demo.mybillaccess.com/soapservice</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
